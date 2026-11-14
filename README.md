@@ -14,7 +14,7 @@ EFMW-ATC-Monitor is a proposed, independently evaluated observer for air-traffic
 
 ## Repository contents
 
-- [INDEX.md](INDEX.md) — complete document map, suggested reading paths, and links to key topics.
+- [index.html](index.html) — responsive HTML landing page with document navigation, evaluation stages, safety scope, and a topic map. Open this file in a browser; document links lead to their rendered GitHub pages.
 - [PROPOSAL_FOR_SECRETARY_DUFFY.md](PROPOSAL_FOR_SECRETARY_DUFFY.md) — the accompanying bounded pilot proposal.
 - [VALIDATION_PLAN.md](VALIDATION_PLAN.md) — staged comparisons, measures, and decision gates.
 - [SAFETY_AND_SCOPE.md](SAFETY_AND_SCOPE.md) — system boundary, misuse risks, and governance requirements.
