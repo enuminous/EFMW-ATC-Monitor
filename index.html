@@ -1,0 +1,276 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Explore Monolithic LLC's EFMW-ATC-Monitor research proposal, safety boundaries, and staged validation plan for an isolated observer of air-traffic-system records.">
+  <meta name="theme-color" content="#102c36">
+  <title>EFMW-ATC-Monitor — Monolithic Research</title>
+  <style>
+    :root{--ink:#102c36;--muted:#52636a;--paper:#f6f7f3;--white:#fff;--line:#d8e0dc;--teal:#16645a;--mint:#dceee5;--amber:#f7e9c9;--amber-ink:#76531b;--radius:18px}
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth;scroll-padding-top:24px}
+    body{margin:0;background:var(--paper);color:var(--ink);font:16px/1.65 system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+    a{color:var(--teal);text-underline-offset:4px}
+    a:hover{text-decoration-thickness:2px}
+    a:focus-visible,summary:focus-visible{outline:3px solid #a24b10;outline-offset:5px;border-radius:3px}
+    h1,h2,h3,p{margin:0}
+    h1,h2,h3{line-height:1.15;letter-spacing:-.035em}
+    h1{font-size:clamp(2.65rem,5.5vw,4.65rem);font-weight:650;max-width:780px}
+    h2{font-size:clamp(1.8rem,3vw,2.65rem);font-weight:630}
+    h3{font-size:1.25rem;font-weight:650}
+    .wrap{width:min(1160px,calc(100% - 64px));margin-inline:auto}
+    .skip{position:absolute;left:16px;top:-100px;z-index:5;background:var(--white);padding:12px 18px}
+    .skip:focus{top:12px}
+    .masthead{border-bottom:1px solid var(--line)}
+    .header-row{display:flex;align-items:center;justify-content:space-between;gap:24px;min-height:88px}
+    .brand{display:flex;gap:13px;align-items:center;color:var(--ink);text-decoration:none;font-size:.85rem;font-weight:750;letter-spacing:.1em}
+    .brand svg{width:32px;height:36px;flex:none}
+    .brand small{display:block;font-size:.65rem;letter-spacing:.15em;font-weight:550;color:var(--muted)}
+    nav{display:flex;gap:26px;flex-wrap:wrap;align-items:center;font-size:.85rem;font-weight:600}
+    nav a{color:var(--ink);text-decoration:none;padding-block:8px}
+    nav a:hover{text-decoration:underline}
+    .repo-link{border:1px solid var(--line);border-radius:999px;padding:8px 16px}
+    .hero{padding:76px 0 54px}
+    .eyebrow{display:flex;align-items:center;gap:12px;flex-wrap:wrap;font-size:.72rem;letter-spacing:.13em;text-transform:uppercase;font-weight:750;margin-bottom:26px}
+    .badge{background:var(--amber);color:var(--amber-ink);padding:5px 10px;border-radius:999px;font-size:.65rem;letter-spacing:.06em}
+    .hero-grid{display:grid;grid-template-columns:1.65fr 1fr;gap:62px;align-items:start}
+    .hero-copy>p{color:var(--muted);font-size:1.13rem;max-width:660px;margin-top:25px}
+    .actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:30px}
+    .button{display:inline-flex;align-items:center;justify-content:center;gap:20px;border-radius:8px;min-height:48px;padding:11px 19px;text-decoration:none;font-size:.87rem;font-weight:650;border:1px solid var(--line);color:var(--ink)}
+    .button.primary{background:var(--ink);border-color:var(--ink);color:white}
+    .button:hover{background:var(--mint);color:var(--ink);border-color:var(--teal)}
+    .question{margin-top:5px;border-top:3px solid var(--teal);padding:22px 0 0}
+    .label{font-size:.7rem;text-transform:uppercase;letter-spacing:.12em;font-weight:750;color:var(--teal)}
+    .question p{font-size:1.08rem;line-height:1.6;margin-top:14px}
+    .question .boundary{font-size:.85rem;color:var(--muted);margin-top:22px;border-top:1px solid var(--line);padding-top:18px}
+    .status-note{margin-top:44px;padding:16px 20px;background:#edf0eb;border:1px solid var(--line);border-radius:10px;color:var(--muted);font-size:.85rem}
+    .status-note strong{color:var(--ink)}
+    section{padding:52px 0;border-top:1px solid var(--line)}
+    .section-head{display:flex;justify-content:space-between;gap:28px;align-items:end;margin-bottom:28px}
+    .section-head p{color:var(--muted);max-width:405px;font-size:.95rem}
+    .section-number{font:500 .72rem/1.3 ui-monospace,SFMono-Regular,Consolas,monospace;letter-spacing:.08em;color:var(--teal);display:block;margin-bottom:11px}
+    .docs{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
+    .doc{display:flex;flex-direction:column;padding:27px 28px;background:var(--white);border:1px solid var(--line);border-radius:var(--radius);text-decoration:none;color:var(--ink);transition:border-color .15s,transform .15s}
+    .doc:hover{border-color:var(--teal);transform:translateY(-2px)}
+    .doc-top{display:flex;justify-content:space-between;gap:20px;align-items:center;margin-bottom:26px}
+    .doc-tag{font-size:.69rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);font-weight:700}
+    .arrow{font-size:1.2rem;color:var(--teal)}
+    .doc p{font-size:.93rem;color:var(--muted);margin-top:12px;flex:1}
+    .filename{font:500 .68rem/1.6 ui-monospace,SFMono-Regular,Consolas,monospace;color:var(--teal);margin-top:26px;overflow-wrap:anywhere}
+    .reading{margin-top:22px;display:flex;gap:8px 20px;flex-wrap:wrap;font-size:.83rem;color:var(--muted)}
+    .reading strong{color:var(--ink)}
+    .stages{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:24px;list-style:none;padding:0;margin:34px 0 0}
+    .stage-no{display:inline-grid;place-items:center;width:35px;height:35px;border:1px solid var(--line);border-radius:50%;font:500 .85rem/1 ui-monospace,monospace;margin-bottom:23px}
+    .stages h3{font-size:1.06rem;letter-spacing:-.02em;min-height:2.4em}
+    .stages p{font-size:.87rem;color:var(--muted);margin:12px 0 14px}
+    .stages a{font-size:.8rem;font-weight:650}
+    .evaluation-note{font-size:.85rem;color:var(--muted);margin-top:28px;padding-top:22px;border-top:1px solid var(--line)}
+    .safety-panel{background:var(--ink);color:#f4f7f4;padding:36px;border-radius:var(--radius);display:grid;grid-template-columns:1.15fr 1fr;gap:52px}
+    .safety-panel .section-number{color:#9dc9b5}
+    .safety-panel h2{font-size:2rem}
+    .safety-panel p{color:#c3d2d5;font-size:.94rem;margin-top:20px}
+    .safety-panel ul{padding-left:19px;margin:0;color:#dce6e5;font-size:.91rem}
+    .safety-panel li+li{margin-top:12px}
+    .safety-panel a{color:#b8e4c9;display:inline-block;margin-top:22px;font-size:.86rem}
+    .topics{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));column-gap:42px}
+    .topic{display:flex;justify-content:space-between;gap:18px;align-items:baseline;padding:17px 0;border-bottom:1px solid var(--line);color:var(--ink);text-decoration:none;font-size:.91rem}
+    .topic small{flex:none;font-size:.67rem;letter-spacing:.04em;text-transform:uppercase;color:var(--muted)}
+    .topic:hover{color:var(--teal);text-decoration:underline}
+    .closing{display:flex;justify-content:space-between;gap:36px;align-items:center}
+    .closing p{color:var(--muted);max-width:690px;margin-top:14px;font-size:.95rem}
+    footer{border-top:1px solid var(--line);padding:26px 0 34px;font-size:.76rem;color:var(--muted)}
+    .footer-row{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap}
+    .footer-row p+p{margin-top:4px}
+    footer a{color:var(--muted)}
+    @media(max-width:900px){
+      .hero-grid{gap:36px;grid-template-columns:1.45fr 1fr}
+      .header-row{gap:18px}nav{gap:14px}.repo-link{padding:7px 11px}
+      .stages{grid-template-columns:repeat(2,minmax(0,1fr));gap:28px}
+      .stages h3{min-height:0}.stage-no{margin-bottom:14px}
+      .safety-panel{gap:30px}.topics{column-gap:26px}.topic small{display:none}
+    }
+    @media(max-width:640px){
+      .wrap{width:calc(100% - 36px)}
+      .header-row{align-items:flex-start;flex-direction:column;padding:20px 0;gap:14px}
+      nav{gap:19px;font-size:.79rem;justify-content:flex-start}
+      nav .repo-link{border:0;padding:8px 0}
+      .hero{padding:42px 0 34px}.eyebrow{margin-bottom:22px;gap:9px}
+      h1{font-size:2.8rem}.hero-grid{grid-template-columns:1fr;gap:34px}
+      .hero-copy>p{font-size:1rem;margin-top:20px}
+      .question{padding-top:18px}.question p{font-size:1rem;margin-top:10px}
+      .question .boundary{margin-top:16px;padding-top:14px}.status-note{margin-top:28px}
+      section{padding:36px 0}.section-head{display:block}.section-head p{margin-top:14px}
+      .docs{grid-template-columns:1fr}.doc{padding:22px}.doc-top{margin-bottom:20px}
+      .filename{margin-top:20px}.stages{gap:28px 20px}
+      .safety-panel{grid-template-columns:1fr;padding:25px;gap:25px}.safety-panel h2{font-size:1.75rem}
+      .topics{grid-template-columns:1fr}.topic{padding:15px 0}
+      .closing{display:block}.closing .button{margin-top:23px}.footer-row{display:block}.footer-row>div+div{margin-top:16px}
+    }
+    @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.doc{transition:none}.doc:hover{transform:none}}
+    @media print{
+      body{background:white;font-size:11pt}.wrap{width:100%}nav,.skip,.actions{display:none}
+      .hero{padding:25px 0}.hero-grid{grid-template-columns:2fr 1fr;gap:25px}h1{font-size:32pt}h2{font-size:21pt}
+      section{padding:24px 0}.docs{grid-template-columns:repeat(2,1fr)}.doc,.safety-panel{break-inside:avoid}
+      .safety-panel{background:#f2f4f2;color:var(--ink)}.safety-panel p,.safety-panel ul,.safety-panel a{color:var(--ink)}
+      a{color:var(--ink)}.stages{grid-template-columns:repeat(2,1fr)}
+    }
+  </style>
+</head>
+<body id="top">
+  <a class="skip" href="#main">Skip to content</a>
+  <header class="masthead">
+    <div class="wrap header-row">
+      <a class="brand" href="#top" aria-label="Monolithic Research, top of page">
+        <svg viewBox="0 0 32 36" aria-hidden="true"><path fill="currentColor" d="M2 32V10L16 2l14 8v22h-8V15l-6-3-6 3v17z"/><path fill="#7cae9a" d="M13 18h6v14h-6z"/></svg>
+        <span>MONOLITHIC<small>RESEARCH / EFMW</small></span>
+      </a>
+      <nav aria-label="Main navigation">
+        <a href="#documents">Documents</a>
+        <a href="#evaluation">Evaluation</a>
+        <a href="#topics">Topic map</a>
+        <a class="repo-link" href="https://github.com/enuminous/EFMW-ATC-Monitor">GitHub <span aria-hidden="true">↗</span></a>
+      </nav>
+    </div>
+  </header>
+  <main id="main" class="wrap">
+    <div class="hero">
+      <div class="eyebrow"><span>EFMW-ATC-Monitor</span><span class="badge">Proposal-stage research</span></div>
+      <div class="hero-grid">
+        <div class="hero-copy">
+          <h1>Keeping the<br>airspace coherent.</h1>
+          <p>A proposed independent observer for air-traffic-system modernization, built around a question of memory, provenance, and consistency.</p>
+          <div class="actions">
+            <a class="button primary" href="https://github.com/enuminous/EFMW-ATC-Monitor/blob/main/PROPOSAL_FOR_SECRETARY_DUFFY.md">Read the proposal <span aria-hidden="true">↗</span></a>
+            <a class="button" href="#documents">Explore the documents <span aria-hidden="true">↓</span></a>
+          </div>
+        </div>
+        <aside class="question" aria-labelledby="question-label">
+          <h2 id="question-label" class="label">The research question</h2>
+          <p>Can recursive memory and provenance checks help engineers identify inconsistent system records, with useful warning time and evidence they can trace?</p>
+          <p class="boundary"><strong>Proposed boundary:</strong> authorized copies of telemetry and logs, isolated from operational command paths.</p>
+        </aside>
+      </div>
+      <p class="status-note"><strong>Current status:</strong> four research documents. Monitor implementation, evaluation datasets, and experimental results are not included. Aviation efficacy and safety remain unvalidated.</p>
+    </div>
+
+    <section id="documents" aria-labelledby="documents-title">
+      <div class="section-head">
+        <div><span class="section-number">01 / DOCUMENTS</span><h2 id="documents-title">Explore the research</h2></div>
+        <p>Start with the overview, then follow the proposal into its evaluation plan and safety boundaries. Documents open in GitHub.</p>
+      </div>
+      <div class="docs">
+        <a class="doc" href="https://github.com/enuminous/EFMW-ATC-Monitor/blob/main/README.md">
+          <div class="doc-top"><span class="doc-tag">Start here</span><span class="arrow" aria-hidden="true">↗</span></div>
+          <h3>Project overview</h3>
+          <p>The core research question, project status, operational boundaries, and proposed first step.</p>
+          <span class="filename">README.md</span>
+        </a>
+        <a class="doc" href="https://github.com/enuminous/EFMW-ATC-Monitor/blob/main/PROPOSAL_FOR_SECRETARY_DUFFY.md">
+          <div class="doc-top"><span class="doc-tag">Policy &amp; program review</span><span class="arrow" aria-hidden="true">↗</span></div>
+          <h3>Pilot proposal</h3>
+          <p>A draft addressed to Secretary Sean P. Duffy, describing the proposed observer and a bounded evaluation alongside modernization.</p>
+          <span class="filename">PROPOSAL_FOR_SECRETARY_DUFFY.md</span>
+        </a>
+        <a class="doc" href="https://github.com/enuminous/EFMW-ATC-Monitor/blob/main/VALIDATION_PLAN.md">
+          <div class="doc-top"><span class="doc-tag">Technical evaluation</span><span class="arrow" aria-hidden="true">↗</span></div>
+          <h3>Validation plan</h3>
+          <p>Historical replay, simulation, conventional baselines, independent scoring, and the criteria for stopping or advancing.</p>
+          <span class="filename">VALIDATION_PLAN.md</span>
+        </a>
+        <a class="doc" href="https://github.com/enuminous/EFMW-ATC-Monitor/blob/main/SAFETY_AND_SCOPE.md">
+          <div class="doc-top"><span class="doc-tag">Safety &amp; security review</span><span class="arrow" aria-hidden="true">↗</span></div>
+          <h3>Safety and scope</h3>
+          <p>Intended users, prohibited functions, failure modes, data safeguards, and the evidence required for future claims.</p>
+          <span class="filename">SAFETY_AND_SCOPE.md</span>
+        </a>
+      </div>
+      <div class="reading"><strong>Suggested route:</strong><span>Overview → Proposal → Safety and scope → Validation plan</span></div>
+    </section>
+
+    <section id="evaluation" aria-labelledby="evaluation-title">
+      <div class="section-head">
+        <div><span class="section-number">02 / EVALUATION</span><h2 id="evaluation-title">Evidence before advancement</h2></div>
+        <p>The proposed evaluation progresses through four stages. These are planned activities, not completed milestones.</p>
+      </div>
+      <ol class="stages" start="0">
+        <li>
+          <span class="stage-no" aria-hidden="true">0</span><h3>Protocol and governance</h3>
+          <p>Establish authorized data use, isolation, independent custody, and frozen scoring rules before a run.</p>
+          <a href="https://github.com/enuminous/EFMW-ATC-Monitor/blob/main/VALIDATION_PLAN.md#0-protocol-and-data-governance">Review stage 0 ↗</a>
+        </li>
+        <li>
+          <span class="stage-no" aria-hidden="true">1</span><h3>Historical replay</h3>
+          <p>Compare incident, recovery, and clean periods against existing alarms, thresholds, EWMA, and CUSUM where appropriate.</p>
+          <a href="https://github.com/enuminous/EFMW-ATC-Monitor/blob/main/VALIDATION_PLAN.md#1-historical-replay">Review stage 1 ↗</a>
+        </li>
+        <li>
+          <span class="stage-no" aria-hidden="true">2</span><h3>Controlled simulation</h3>
+          <p>Evaluate delays, gaps, drift, failover, and mixed configurations, including benign anomalies and correlated noise.</p>
+          <a href="https://github.com/enuminous/EFMW-ATC-Monitor/blob/main/VALIDATION_PLAN.md#2-simulation-or-hardware-in-the-loop">Review stage 2 ↗</a>
+        </li>
+        <li>
+          <span class="stage-no" aria-hidden="true">3</span><h3>Optional shadow study</h3>
+          <p>Only after independent review, consider an FAA-authorized study using copied data and verified one-way isolation.</p>
+          <a href="https://github.com/enuminous/EFMW-ATC-Monitor/blob/main/VALIDATION_PLAN.md#3-optional-shadow-observation">Review stage 3 ↗</a>
+        </li>
+      </ol>
+      <p class="evaluation-note">Measure detection, delay, nuisance alerts, evidence traceability, uncertainty, robustness, and reviewer usefulness. Preserve negative and inconclusive findings. <a href="https://github.com/enuminous/EFMW-ATC-Monitor/blob/main/VALIDATION_PLAN.md#pre-registered-measures">Read the measures</a> and <a href="https://github.com/enuminous/EFMW-ATC-Monitor/blob/main/VALIDATION_PLAN.md#decision-gates">decision gates</a>.</p>
+    </section>
+
+    <section id="safety" aria-labelledby="safety-title">
+      <div class="safety-panel">
+        <div>
+          <span class="section-number">03 / SCOPE</span>
+          <h2 id="safety-title">Isolated observation for engineering review</h2>
+          <p>The proposed monitor would read approved copies of records and produce evidence-linked findings with uncertainty visible.</p>
+          <a href="https://github.com/enuminous/EFMW-ATC-Monitor/blob/main/SAFETY_AND_SCOPE.md">Read the complete safety boundary ↗</a>
+        </div>
+        <div>
+          <ul>
+            <li>No authority to issue or alter clearances, routes, equipment commands, or ground-stop decisions.</li>
+            <li>Written data authorization, a named owner, access controls, and an audit trail.</li>
+            <li>Technical verification of isolation, independent security review, and predefined stop conditions.</li>
+            <li>Existing FAA procedures and personnel retain operational authority.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section id="topics" aria-labelledby="topics-title">
+      <div class="section-head">
+        <div><span class="section-number">04 / TOPIC MAP</span><h2 id="topics-title">Go directly to the evidence</h2></div>
+        <p>Links to the relevant sections of the source documents.</p>
+      </div>
+      <div class="topics">
+        <a class="topic" href="https://github.com/enuminous/EFMW-ATC-Monitor/blob/main/VALIDATION_PLAN.md#research-question"><span>Research question and hypothesis</span><small>Validation ↗</small></a>
+        <a class="topic" href="https://github.com/enuminous/EFMW-ATC-Monitor/blob/main/PROPOSAL_FOR_SECRETARY_DUFFY.md#what-the-monitor-would-do"><span>Proposed inputs and findings</span><small>Proposal ↗</small></a>
+        <a class="topic" href="https://github.com/enuminous/EFMW-ATC-Monitor/blob/main/SAFETY_AND_SCOPE.md#intended-use"><span>Intended engineering users</span><small>Safety ↗</small></a>
+        <a class="topic" href="https://github.com/enuminous/EFMW-ATC-Monitor/blob/main/VALIDATION_PLAN.md#system-boundary"><span>Read-only system boundary</span><small>Validation ↗</small></a>
+        <a class="topic" href="https://github.com/enuminous/EFMW-ATC-Monitor/blob/main/SAFETY_AND_SCOPE.md#required-safeguards-before-any-data-access"><span>Authorization and data safeguards</span><small>Safety ↗</small></a>
+        <a class="topic" href="https://github.com/enuminous/EFMW-ATC-Monitor/blob/main/VALIDATION_PLAN.md#1-historical-replay"><span>Historical replay and baselines</span><small>Validation ↗</small></a>
+        <a class="topic" href="https://github.com/enuminous/EFMW-ATC-Monitor/blob/main/VALIDATION_PLAN.md#2-simulation-or-hardware-in-the-loop"><span>Fault scenarios and clean controls</span><small>Validation ↗</small></a>
+        <a class="topic" href="https://github.com/enuminous/EFMW-ATC-Monitor/blob/main/VALIDATION_PLAN.md#pre-registered-measures"><span>Metrics and uncertainty</span><small>Validation ↗</small></a>
+        <a class="topic" href="https://github.com/enuminous/EFMW-ATC-Monitor/blob/main/SAFETY_AND_SCOPE.md#threat-and-failure-considerations"><span>Spoofing, tampering, and failures</span><small>Safety ↗</small></a>
+        <a class="topic" href="https://github.com/enuminous/EFMW-ATC-Monitor/blob/main/VALIDATION_PLAN.md#decision-gates"><span>Stop and advancement criteria</span><small>Validation ↗</small></a>
+        <a class="topic" href="https://github.com/enuminous/EFMW-ATC-Monitor/blob/main/VALIDATION_PLAN.md#reporting"><span>Reporting and negative findings</span><small>Validation ↗</small></a>
+        <a class="topic" href="https://github.com/enuminous/EFMW-ATC-Monitor/blob/main/SAFETY_AND_SCOPE.md#claims-discipline"><span>Limits on efficacy and safety claims</span><small>Safety ↗</small></a>
+        <a class="topic" href="https://github.com/enuminous/EFMW-ATC-Monitor/blob/main/PROPOSAL_FOR_SECRETARY_DUFFY.md#why-this-belongs-beside-modernization"><span>Modernization context</span><small>Proposal ↗</small></a>
+        <a class="topic" href="https://github.com/enuminous/EFMW-ATC-Monitor/blob/main/PROPOSAL_FOR_SECRETARY_DUFFY.md#sources"><span>DOT, FAA, and GAO references</span><small>Sources ↗</small></a>
+      </div>
+    </section>
+
+    <section class="closing" aria-labelledby="next-title">
+      <div><span class="section-number">05 / NEXT STEP</span><h2 id="next-title">Define a bounded first test</h2>
+      <p>The proposed next step is a technical review and identification of an authorized historical dataset or simulation environment, followed by a frozen comparison protocol.</p></div>
+      <a class="button" href="https://github.com/enuminous/EFMW-ATC-Monitor/blob/main/README.md#proposed-first-step">Review the next step <span aria-hidden="true">↗</span></a>
+    </section>
+  </main>
+  <footer>
+    <div class="wrap footer-row">
+      <div><p><strong>Monolithic LLC</strong> · Matthew Chenoweth Wright</p><p>EFMW — Entangled Field Memory Waveform</p></div>
+      <div><p>Source documents reviewed November 14, 2026</p><p><a href="https://github.com/enuminous/EFMW-ATC-Monitor">Repository</a> · <a href="https://github.com/enuminous/EFMW-ATC-Monitor/blob/main/index.html">Page source</a> · <a href="#top">Back to top ↑</a></p></div>
+    </div>
+  </footer>
+</body>
+</html>
